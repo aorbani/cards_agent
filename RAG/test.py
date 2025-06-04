@@ -10,9 +10,9 @@ from RAG.main import rag_system_answer
 from RAG.reranker import load_reranker
 from RAG.splitter import split_documents
 
-embedding = Embedding("Cards")
+embedding = Embedding("cards_test")
 start = timeit.default_timer()
-chunks = split_documents('Cards')
+chunks = split_documents('cards_test')
 print("----Splitting/Loading document took :",timeit.default_timer() - start)
 
 start = timeit.default_timer()
@@ -21,7 +21,7 @@ print("----Generating/Loading Vector Store took :",timeit.default_timer() - star
 
 
 start= timeit.default_timer()
-questions_df = Q_generator.generate_questions(chunks,"Cards")
+questions_df = Q_generator.generate_questions(chunks,"cards_test")
 print("----Generarting/Loading benchmark took :",timeit.default_timer() - start)
 
 

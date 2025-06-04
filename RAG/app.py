@@ -13,6 +13,7 @@ from RAG.reranker import load_reranker
 from RAG.splitter import split_documents
 app = FastAPI()
 messages =[]
+uploaded_file_name=''
 def internal(file_name):
     embedding = Embedding(file_name)
     start = timeit.default_timer()
@@ -33,10 +34,14 @@ def create_rag_system(file:UploadFile = File(...)):
         f.write(contents)
     file_name = file.filename.split('.')[0]
     internal(file_name)
+    global uploaded_file_name
+    uploaded_file_name=file_name
     return True
 @app.post("/chat")
-def chat(question:str,file_name:str):
-    embedding = internal(file_name)
+def chat(question:str):
+    if uploaded_file_name=='':
+        return 'please upload your document first'
+    embedding = internal(uploaded_file_name)
     # reranker_model_name = "BAAI/bge-reranker-base"
     final_context_size = 5
     # reranker = load_reranker(reranker_model_name,num_docs_final=final_context_size)

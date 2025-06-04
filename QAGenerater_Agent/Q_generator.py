@@ -1,15 +1,14 @@
 import json
 import os
 from typing import List
-
 import pandas as pd
 from tqdm import tqdm
 from QAGenerater_Agent.llm import call_model
 from QAGenerater_Agent.prompt import QA_generation_prompt,generator_rules,generator_guidelines,generator_examples,generator_json_format
 
 def generate_questions(source:pd.DataFrame ,output_file:str):
-    if os.path.isfile(f"{output_file}.csv"):
-        return pd.read_csv(f"{output_file}.csv")
+    if os.path.isfile(f"qa_{output_file}.csv"):
+        return pd.read_csv(f"qa_{output_file}.csv")
     print(f"Generating QA couples...")
     outputs = []
     for sampled_context in tqdm(source[1]):
@@ -33,9 +32,7 @@ def generate_questions(source:pd.DataFrame ,output_file:str):
             )
         except:
             continue
-
-
     question_answers = pd.DataFrame(outputs)
-    question_answers.to_csv(f"{output_file}.csv")
+    question_answers.to_csv(f"qa_{output_file}.csv")
     print(f"Successfully Generated QA benchmark")
     return question_answers

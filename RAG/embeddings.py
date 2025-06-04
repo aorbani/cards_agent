@@ -4,7 +4,7 @@ import os
 import faiss
 from sentence_transformers import SentenceTransformer
 from faiss import write_index, read_index, IndexFlatL2
-sentence_transformer_model = SentenceTransformer(fr"\\172.16.123.109\ai\all-MiniLM-L6-v2")
+sentence_transformer_model = SentenceTransformer(fr"\\172.16.123.109\ai\sentence-transformers\all-MiniLM-L6-v2")
 class Embedding:
     def __init__(self,doc_name):
         self.doc_name=doc_name
